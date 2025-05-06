@@ -1,6 +1,6 @@
 package com.minhnam.filemanagement.service.impl;
 
-import com.minhnam.filemanagement.entity.Students;
+import com.minhnam.filemanagement.entity.Student;
 import com.minhnam.filemanagement.mapper.StudentMapper;
 import com.minhnam.filemanagement.service.StudentService;
 import org.springframework.stereotype.Service;
@@ -17,7 +17,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<Students> getStudentsList() {
+    public List<Student> getStudentsList() {
         return studentMapper.findAllStudents();
     }
 }

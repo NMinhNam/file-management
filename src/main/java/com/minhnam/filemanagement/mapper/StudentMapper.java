@@ -1,8 +1,12 @@
 package com.minhnam.filemanagement.mapper;
 
-import com.minhnam.filemanagement.entity.Students;
+import com.minhnam.filemanagement.entity.Student;
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -11,7 +15,8 @@ public interface StudentMapper {
 
     /**
      * Lấy danh sách tất cả sinh viên từ bảng students
-     * @return Lấy danh sách tất cả sinh viên
+     *
+     * @return Danh sách thông tin của tất cả sinh viên
      */
     @Select("SELECT id, \n" +
             "       student_code, \n" +
@@ -21,5 +26,35 @@ public interface StudentMapper {
             "       date_of_birth, \n" +
             "       gender\n" +
             "FROM students")
-    List<Students> findAllStudents();
+    List<Student> findAllStudents();
+
+    /**
+     * Thêm một sinh viên mới vào bảng students
+     *
+     * @param student Thông tin sinh viên cần thêm
+     * @return Số dòng bị ảnh hưởng
+     */
+    @Insert("INSERT INTO students (student_code, full_name, email, phone_number, date_of_birth, gender) " +
+            "VALUES (#{studentCode}, #{fullName}, #{email}, #{phoneNumber}, #{dateOfBirth}, #{gender})")
+    int insertStudent(Student student);
+
+    /**
+     * Cập nhật thông tin sinh viên theo thông tin trong đối tượng student
+     * @param student Thông tin mới của sinh viên, bao gồm cả id của sinh viên cần cập nhật
+     * @return Số dòng bị ảnh hưởng
+     */
+    @Update("UPDATE students " +
+            "SET student_code = #{studentCode}, full_name = #{fullName}, email = #{email}, " +
+            "phone_number = #{phoneNumber}, date_of_birth = #{dateOfBirth}, gender = #{gender} " +
+            "WHERE id = #{id}")
+    int updateStudent(@Param("student") Student student);
+
+    /**
+     * Xóa một sinh viên khỏi bảng students theo ID
+     *
+     * @param id ID của sinh viên cần xóa
+     * @return Số dòng bị ảnh hưởng
+     */
+    @Delete("DELETE FROM students WHERE id = #{id}")
+    int deleteStudent(Integer id);
 }

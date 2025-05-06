@@ -1,6 +1,6 @@
 package com.minhnam.filemanagement.controller;
 
-import com.minhnam.filemanagement.entity.Students;
+import com.minhnam.filemanagement.entity.Student;
 import com.minhnam.filemanagement.service.StudentService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,15 +23,15 @@ public class StudentController {
     /**
      * Lấy danh sách sinh viên
      */
-    @GetMapping()
-    public ResponseEntity<List<Students>> getStudentsList() {
+    @GetMapping
+    public ResponseEntity<List<Student>> getStudentsList() {
         return ResponseEntity.ok(studentService.getStudentsList());
     }
 
     /**
-     * Thêm sinh viên mới -> CREATE -> POST
+     * Thêm sinh viên mới
      */
-    @PostMapping("/hello-1")
+    @PostMapping
     public String createNewStudent() {
         return "Hello World";
     }
