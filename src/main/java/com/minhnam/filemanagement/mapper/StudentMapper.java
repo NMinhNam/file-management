@@ -44,9 +44,9 @@ public interface StudentMapper {
      * @return Số dòng bị ảnh hưởng
      */
     @Update("UPDATE students " +
-            "SET student_code = #{studentCode}, full_name = #{fullName}, email = #{email}, " +
-            "phone_number = #{phoneNumber}, date_of_birth = #{dateOfBirth}, gender = #{gender} " +
-            "WHERE id = #{id}")
+            "SET student_code = #{student.studentCode}, full_name = #{student.fullName}, email = #{student.email}, " +
+            "phone_number = #{student.phoneNumber}, date_of_birth = #{student.dateOfBirth}, gender = #{student.gender} " +
+            "WHERE id = #{student.id}")
     int updateStudent(@Param("student") Student student);
 
     /**

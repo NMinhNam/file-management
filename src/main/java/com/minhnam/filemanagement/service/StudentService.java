@@ -10,5 +10,23 @@ public interface StudentService {
      * Lấy danh sách sinh viên
      * @return Danh sách sinh viên
      */
-    List<Student> getStudentsList();
+    List<Student> getAllStudents();
+
+    /**
+     * Thêm sinh viên mới
+     * @return Số dòng dữ liệu bị thay đổi
+     */
+    int createNewStudent(Student student);
+
+    /**
+     * Cập nhật thông tin sinh viên
+     * @return Số dòng dữ liệu bị thay đổi
+     */
+    int updateStudent(Integer id, Student student);
+
+    /**
+     * Xóa sinh viên
+     * @return Số dòng dữ liệu bị thay đổi
+     */
+    int deleteStudent(Integer id);
 }

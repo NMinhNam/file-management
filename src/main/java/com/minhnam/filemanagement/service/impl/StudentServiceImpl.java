@@ -17,7 +17,40 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<Student> getStudentsList() {
+    public List<Student> getAllStudents() {
         return studentMapper.findAllStudents();
+    }
+
+    @Override
+    public int createNewStudent(Student student) {
+
+        /*
+            TODO: xử lý logic
+         */
+
+        return studentMapper.insertStudent(student);
+    }
+
+    @Override
+    public int updateStudent(Integer id, Student student) {
+
+        /*
+            TODO: xử lý logic
+         */
+
+
+        student.setId(id);
+
+        return studentMapper.updateStudent(student);
+    }
+
+    @Override
+    public int deleteStudent(Integer id) {
+
+        /*
+            TODO: xử lý logic
+         */
+
+        return studentMapper.deleteStudent(id);
     }
 }
