@@ -1,4 +1,7 @@
 package com.minhnam.filemanagement.mapper;
 
-public class CourseMapper {
+import org.apache.ibatis.annotations.Mapper;
+
+@Mapper
+public interface CourseMapper {
 }
