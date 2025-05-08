@@ -1,5 +1,8 @@
 package com.minhnam.filemanagement.service.impl;
 
+import com.minhnam.filemanagement.converter.StudentConverter;
+import com.minhnam.filemanagement.dto.request.CreationStudentDto;
+import com.minhnam.filemanagement.dto.response.StudentResponseDto;
 import com.minhnam.filemanagement.entity.Student;
 import com.minhnam.filemanagement.mapper.StudentMapper;
 import com.minhnam.filemanagement.service.StudentService;
@@ -17,16 +20,33 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<Student> getAllStudents() {
-        return studentMapper.findAllStudents();
+    public List<StudentResponseDto> getAllStudents() {
+
+        /*
+            TODO: Convert from entity to dto
+         */
+
+        List<Student> studentList = studentMapper.findAllStudents();
+
+        // Convert from entity to dto
+        List<StudentResponseDto> responseDtoList = StudentConverter.toDtoList(studentList);
+
+        return responseDtoList;
     }
 
     @Override
-    public int createNewStudent(Student student) {
+    public int createNewStudent(CreationStudentDto studentDto) {
 
         /*
             TODO: xử lý logic
+
+            TODO: Convert from dto to entity
+                or Convert from entity to dto
+
          */
+
+        // Convert from dto to entity
+        Student student = StudentConverter.toEntity(studentDto);
 
         return studentMapper.insertStudent(student);
     }
@@ -38,8 +58,13 @@ public class StudentServiceImpl implements StudentService {
             TODO: xử lý logic
          */
 
+        // Check exist student by id -> db
+        boolean isExistedStudent = studentMapper.isExistedStudentById(id);
 
-        student.setId(id);
+        if (!isExistedStudent) {
+            System.out.println("Update student failed");
+            return 0;
+        }
 
         return studentMapper.updateStudent(student);
     }

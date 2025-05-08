@@ -34,12 +34,15 @@ public interface StudentMapper {
      * @param student Thông tin sinh viên cần thêm
      * @return Số dòng bị ảnh hưởng
      */
-    @Insert("INSERT INTO students (student_code, full_name, email, phone_number, date_of_birth, gender) " +
-            "VALUES (#{studentCode}, #{fullName}, #{email}, #{phoneNumber}, #{dateOfBirth}, #{gender})")
-    int insertStudent(Student student);
+    @Insert("INSERT INTO students (student_code, full_name, email, " +
+            "phone_number, date_of_birth, gender) " +
+            "VALUES (#{student.studentCode}, #{student.fullName}, #{student.email}, " +
+            "#{student.phoneNumber}, #{student.dateOfBirth}, #{student.gender})")
+    int insertStudent(@Param("student") Student student);
 
     /**
      * Cập nhật thông tin sinh viên theo thông tin trong đối tượng student
+     *
      * @param student Thông tin mới của sinh viên, bao gồm cả id của sinh viên cần cập nhật
      * @return Số dòng bị ảnh hưởng
      */
@@ -56,5 +59,16 @@ public interface StudentMapper {
      * @return Số dòng bị ảnh hưởng
      */
     @Delete("DELETE FROM students WHERE id = #{id}")
-    int deleteStudent(Integer id);
+    int deleteStudent(@Param("id") Integer id);
+
+    /**
+     * Kiểm tra tồn tại sinh viên theo ID
+     *
+     * @param id ID của sinh viên
+     * @return Sinh viên có tồn tại hay không ?
+     */
+    @Select("SELECT EXISTS(" +
+            "SELECT 1 FROM students WHERE id = #{id}" +
+            ")")
+    boolean isExistedStudentById(@Param("id") Integer id);
 }
