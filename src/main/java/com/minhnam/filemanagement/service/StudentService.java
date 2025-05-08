@@ -1,5 +1,7 @@
 package com.minhnam.filemanagement.service;
 
+import com.minhnam.filemanagement.dto.request.CreationStudentDto;
+import com.minhnam.filemanagement.dto.response.StudentResponseDto;
 import com.minhnam.filemanagement.entity.Student;
 
 import java.util.List;
@@ -7,16 +9,16 @@ import java.util.List;
 public interface StudentService {
 
     /**
-     * Lấy danh sách sinh viên
+     * Lấy danh sách tất cả sinh viên
      * @return Danh sách sinh viên
      */
-    List<Student> getAllStudents();
+    List<StudentResponseDto> getAllStudents();
 
     /**
      * Thêm sinh viên mới
      * @return Số dòng dữ liệu bị thay đổi
      */
-    int createNewStudent(Student student);
+    int createNewStudent(CreationStudentDto studentDto);
 
     /**
      * Cập nhật thông tin sinh viên
