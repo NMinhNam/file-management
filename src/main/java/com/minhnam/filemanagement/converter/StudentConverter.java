@@ -28,10 +28,19 @@ public class StudentConverter {
             StudentResponseDto dto = new StudentResponseDto();
             dto.setFullName(s.getFullName());
             dto.setGender(s.getGender());
+            dto.setPhoneNumber(s.getPhoneNumber());
+            // ...
             dtoList.add(dto);
         }
 
         return dtoList;
     }
 
+    public static StudentResponseDto toDto(Student student) {
+        return StudentResponseDto.builder()
+                .fullName(student.getFullName())
+                .gender(student.getGender())
+                .phoneNumber(student.getPhoneNumber())
+                .build();
+    }
 }

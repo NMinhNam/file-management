@@ -4,6 +4,8 @@ import com.minhnam.filemanagement.converter.StudentConverter;
 import com.minhnam.filemanagement.dto.request.CreationStudentDto;
 import com.minhnam.filemanagement.dto.response.StudentResponseDto;
 import com.minhnam.filemanagement.entity.Student;
+import com.minhnam.filemanagement.enums.ErrorCode;
+import com.minhnam.filemanagement.exception.AppException;
 import com.minhnam.filemanagement.mapper.StudentMapper;
 import com.minhnam.filemanagement.service.StudentService;
 import org.springframework.stereotype.Service;
@@ -62,8 +64,9 @@ public class StudentServiceImpl implements StudentService {
         boolean isExistedStudent = studentMapper.isExistedStudentById(id);
 
         if (!isExistedStudent) {
-            System.out.println("Update student failed");
-            return 0;
+
+            // TODO: xử lý lỗi nghiệp vụ tại đây
+            throw new AppException(ErrorCode.STUDENT_NOT_EXISTED);
         }
 
         return studentMapper.updateStudent(student);
@@ -77,5 +80,20 @@ public class StudentServiceImpl implements StudentService {
          */
 
         return studentMapper.deleteStudent(id);
+    }
+
+    @Override
+    public StudentResponseDto getStudentByStudentCode(String studentCode) {
+        Student student = studentMapper.findByStudentCode(studentCode);
+
+        /*
+            TODO: xử lý logic
+         */
+
+        if (student == null) {
+            throw new AppException(ErrorCode.STUDENT_NOT_EXISTED);
+        }
+
+        return StudentConverter.toDto(student);
     }
 }

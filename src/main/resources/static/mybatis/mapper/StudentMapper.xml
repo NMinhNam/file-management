@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minhnam.filemanagement.mapper.StudentMapper">
+    <resultMap id="BaseResultMap" type="com.minhnam.filemanagement.entity.Student">
+        <id property="id" column="id"/>
+        <result property="studentCode" column="student_code"/>
+        <result property="fullName" column="full_name"/>
+        <result property="email" column="email"/>
+        <result property="phoneNumber" column="phone_number"/>
+        <result property="dateOfBirth" column="date_of_birth"/>
+        <result property="gender" column="gender"/>
+    </resultMap>
+
+    <sql id="BaseColumn">
+        id,
+        student_code,
+        full_name,
+        email,
+        phone_number,
+        date_of_birth,
+        gender
+    </sql>
+
+    <select id="findAllStudents" resultMap="BaseResultMap">
+        SELECT
+            id,
+            student_code,
+            full_name,
+            email,
+            phone_number,
+            date_of_birth,
+            gender
+        FROM students
+    </select>
+
+    <select id="findByStudentCode" resultMap="BaseResultMap">
+        SELECT
+            id,
+            student_code,
+            full_name,
+            email,
+            phone_number,
+            date_of_birth,
+            gender
+        FROM students
+        WHERE student_code = #{studentCode}
+    </select>
+</mapper>

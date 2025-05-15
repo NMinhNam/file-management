@@ -18,14 +18,6 @@ public interface StudentMapper {
      *
      * @return Danh sách thông tin của tất cả sinh viên
      */
-    @Select("SELECT id, \n" +
-            "       student_code, \n" +
-            "       full_name, \n" +
-            "       email, \n" +
-            "       phone_number, \n" +
-            "       date_of_birth, \n" +
-            "       gender\n" +
-            "FROM students")
     List<Student> findAllStudents();
 
     /**
@@ -71,4 +63,11 @@ public interface StudentMapper {
             "SELECT 1 FROM students WHERE id = #{id}" +
             ")")
     boolean isExistedStudentById(@Param("id") Integer id);
+
+    /**
+     * Lấy thông tin sinh viên dựa vào studentCode
+     * @param studentCode mã sinh viên
+     * @return Student thông tin sinh viên
+     */
+    Student findByStudentCode(@Param("studentCode") String studentCode);
 }
