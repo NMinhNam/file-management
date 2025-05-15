@@ -31,4 +31,11 @@ public interface StudentService {
      * @return Số dòng dữ liệu bị thay đổi
      */
     int deleteStudent(Integer id);
+
+    /**
+     *
+     * @param studentCode
+     * @return
+     */
+    StudentResponseDto getStudentByStudentCode(String studentCode);
 }
