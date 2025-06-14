@@ -4,7 +4,8 @@ import com.minhnam.filemanagement.entity.Course;
 import com.minhnam.filemanagement.service.CourseService;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,30 +16,29 @@ import java.util.List;
 @RequestMapping("/api/v1/courses")
 public class CourseController {
 
-    // Constructor Injection
     private final CourseService courseService;
 
     public CourseController(CourseService courseService) {
         this.courseService = courseService;
     }
 
-    @GetMapping
-    public List<Course> getAllCoursesList() {
-        return courseService.getAllCoursesList();
+    @GetMapping("/getAllCourses")
+    public List<Course> getAllCourses() {
+        return courseService.getAllCourses();
     }
 
-    @GetMapping("/{code}")
-    public Course getCourseByCode(@PathVariable("code") String code) {
-        return courseService.getCourseByCode(code);
+    @PostMapping("/createNewCourse")
+    public int createNewCourse(@RequestBody Course course) {
+        return courseService.createNewCourse(course);
     }
 
-    @GetMapping("/search")
-    public List<Course> getCoursesByKeyWord(@RequestParam("keyword") String keyword) {
-        return courseService.getCoursesByKeyword(keyword);
+    @DeleteMapping("/deleteCourse")
+    public int deleteCourse(@RequestParam Integer id) {
+        return courseService.deleteCourse(id);
     }
 
-    @DeleteMapping
-    public int deleteCourseById(@RequestParam("id") Integer id) {
-        return courseService.deleteById(id);
+    @GetMapping("/getCourseByStudentName")
+    public List<Course> getCourseByStudentName(@RequestParam String studentName) {
+        return courseService.getCourseByStudentName(studentName);
     }
 }

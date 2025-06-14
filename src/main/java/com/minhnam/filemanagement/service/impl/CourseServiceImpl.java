@@ -10,7 +10,6 @@ import java.util.List;
 @Service
 public class CourseServiceImpl implements CourseService {
 
-    // Constructor Injection
     private final CourseMapper courseMapper;
 
     public CourseServiceImpl(CourseMapper courseMapper) {
@@ -18,49 +17,66 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public List<Course> getAllCoursesList() {
+    public List<Course> getAllCourses() {
 
         /*
-        TODO : xử lý logic
+            TODO: xử lý logic
          */
 
         return courseMapper.findAll();
     }
 
     @Override
-    public Course getCourseByCode(String code) {
+    public int createNewCourse(Course course) {
 
         /*
-        TODO : xử lý logic
+            TODO: xử lý logic
          */
 
-        Course course = courseMapper.findByCode(code);
+        String courseCode = course.getCode(); // JAVA101
 
-        if (course == null) {
-            System.out.println("Course not found");
+        if (courseCode == null || courseCode.isEmpty()) return 0;
+
+        boolean isExistedByCode = courseMapper.isExistedByCode(courseCode); // true
+
+        if (isExistedByCode) {
+            System.out.println("Code is exists");
+            return 0;
+        } else {
+            return courseMapper.insertCourse(course);
+        }
+    }
+
+    @Override
+    public int updateCourse(Integer id, Course course) {
+
+        /*
+            TODO: xử lý logic
+         */
+
+        if (id == null || id > 0) return 0;
+
+        boolean isExistedById = courseMapper.isExistedById(id);
+
+        if (!isExistedById) {
+            return 0;
+        } else {
+            return courseMapper.updateCourse(id, course);
+        }
+    }
+
+    @Override
+    public int deleteCourse(Integer id) {
+        return courseMapper.deleteCourse(id);
+    }
+
+    @Override
+    public List<Course> getCourseByStudentName(String studentName) {
+
+        if(studentName == null || studentName.isEmpty()) {
+            return null;
         }
 
-        return course;
-    }
-
-    @Override
-    public List<Course> getCoursesByKeyword(String keyword) {
-
-        /*
-        TODO : xử lý logic
-         */
-
-        List<Course> courseList =  courseMapper.findByKeyword(keyword);
-        return courseList;
-    }
-
-    @Override
-    public int deleteById(Integer id) {
-
-        /*
-        TODO : xử lý logic
-         */
-
-        return courseMapper.deleteById(id);
+        return courseMapper.findByStudentName(studentName);
     }
 }

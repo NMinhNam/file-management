@@ -5,11 +5,13 @@ import com.minhnam.filemanagement.entity.Course;
 import java.util.List;
 
 public interface CourseService {
-    List<Course> getAllCoursesList();
+    List<Course> getAllCourses();
 
-    Course getCourseByCode(String code);
+    int createNewCourse(Course course);
 
-    List<Course> getCoursesByKeyword(String keyword);
+    int updateCourse(Integer id, Course course);
 
-    int deleteById(Integer id);
+    int deleteCourse(Integer id);
+
+    List<Course> getCourseByStudentName(String studentName);
 }
