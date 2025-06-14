@@ -10,22 +10,26 @@ import java.util.List;
 @Mapper
 public interface CourseMapper {
 
-    @Select("SELECT id, " +
-            "name, " +
-            "code, " +
-            "description\n" +
-            "FROM courses")
     List<Course> findAll();
 
-    @Select("SELECT id, " +
-            "name, " +
-            "code, " +
-            "description\n" +
-            "FROM courses\n" +
-            "WHERE code = #{code}")
-    Course findByCode(@Param("code") String code);
+    int insertCourse(@Param("course") Course course);
 
-    List<Course> findByKeyword(@Param("keyword") String keyword);
+    int updateCourse(@Param("id") Integer id, @Param("course") Course course);
 
-    int deleteById(@Param("id") Integer id);
+    int deleteCourse(@Param("id") Integer id);
+
+    boolean isExistedByCode(@Param("code") String code);
+
+    boolean isExistedById(@Param("id") Integer id);
+
+    @Select("SELECT c.id,\n" +
+            "       c.name,\n" +
+            "       c.code,\n" +
+            "       c.description,\n" +
+            "       s.full_name\n" +
+            "FROM courses c\n" +
+            "         LEFT JOIN student_course ON c.id = student_course.course_id\n" +
+            "         LEFT JOIN students s ON s.id = student_course.student_id\n" +
+            "WHERE s.full_name = #{studentName}")
+    List<Course> findByStudentName(@Param("studentName") String studentName);
 }

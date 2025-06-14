@@ -3,26 +3,109 @@
 <mapper namespace="com.minhnam.filemanagement.mapper.CourseMapper">
 
     <resultMap id="CourseResultMap" type="Course">
-        <id column="id" property="id"/>
-        <result column="name" property="name"/>
-        <result column="code" property="code"/>
-        <result column="description" property="description"/>
+        <id property="courseId" column="id"/>
+        <result property="name" column="name"/>
+        <result property="code" column="code"/>
+        <result property="description" column="description"/>
     </resultMap>
 
-    <select id="findByKeyword" resultMap="CourseResultMap">
-        SELECT  id,
-                name,
-                code,
-                description
-        FROM courses
-        WHERE 1 = 1
-            AND UPPER(name) LIKE UPPER(CONCAT('%', #{keyword}, '%'))
-            OR UPPER(CODE) LIKE UPPER(CONCAT('%', #{keyword}, '%'))
-            OR UPPER(DESCRIPTION) LIKE UPPER(CONCAT('%',#{keyword}, '%'))
-    </select>
+    <insert id="insertCourse">
+        INSERT INTO courses (name, code, description)
+        VALUES (#{course.name}, #{course.code}, #{course.description})
+    </insert>
 
-    <delete id="deleteById">
+    <update id="updateCourse">
+        UPDATE courses
+        SET name = #{course.name},
+            code = #{course.code},
+            description = #{course.description}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteCourse">
         DELETE FROM courses
         WHERE id = #{id}
     </delete>
+
+    <select id="findAll" resultMap="CourseResultMap">
+        SELECT id,
+               name,
+               code,
+               description
+        FROM courses
+    </select>
+
+    <select id="isExistedByCode">
+        SELECT EXISTS(
+            SELECT 1
+            FROM courses
+            WHERE code = #{code}
+        )
+    </select>
+
+    <select id="isExistedById">
+        SELECT EXISTS(
+            SELECT 1
+            FROM courses
+            WHERE id = #{id}
+        )
+    </select>
 </mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--<mapper namespace="com.minhnam.filemanagement.mapper.CourseMapper">-->
+
+<!--    <resultMap id="CourseResultMap" type="Course">-->
+<!--        <id column="id" property="id"/>-->
+<!--        <result column="name" property="name"/>-->
+<!--        <result column="code" property="code"/>-->
+<!--        <result column="description" property="description"/>-->
+<!--    </resultMap>-->
+
+<!--    <select id="findByKeyword" resultMap="CourseResultMap">-->
+<!--        SELECT  id,-->
+<!--                name,-->
+<!--                code,-->
+<!--                description-->
+<!--        FROM courses-->
+<!--        WHERE 1 = 1-->
+<!--            AND UPPER(name) LIKE UPPER(CONCAT('%', #{keyword}, '%'))-->
+<!--            OR UPPER(CODE) LIKE UPPER(CONCAT('%', #{keyword}, '%'))-->
+<!--            OR UPPER(DESCRIPTION) LIKE UPPER(CONCAT('%',#{keyword}, '%'))-->
+<!--    </select>-->
+
+<!--    <delete id="deleteById">-->
+<!--        DELETE FROM courses-->
+<!--        WHERE id = #{id}-->
+<!--    </delete>-->
+<!--</mapper>-->

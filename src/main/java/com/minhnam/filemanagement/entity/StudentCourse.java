@@ -15,4 +15,9 @@ public class StudentCourse {
     private Integer studentId;
 
     private Integer courseId;
+
+    // Thống kê số sinh viên tham gia khóa học
+    private String courseName;
+
+    private Integer totalStudents;
 }
