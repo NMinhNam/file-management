@@ -1,5 +1,6 @@
 package com.minhnam.filemanagement.controller;
 
+import com.minhnam.filemanagement.dto.response.StudentCourseResponseDto;
 import com.minhnam.filemanagement.entity.StudentCourse;
 import com.minhnam.filemanagement.service.StudentCourseService;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +18,7 @@ public class StudentCourseController {
     private final StudentCourseService studentCourseService;
 
     @GetMapping("/getCoursesWithStudentCount")
-    public List<StudentCourse> getCoursesWithStudentCount() {
+    public List<StudentCourseResponseDto> getCoursesWithStudentCount() {
         return studentCourseService.getCoursesWithStudentCount();
     }
 }

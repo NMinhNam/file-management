@@ -4,6 +4,7 @@ import com.minhnam.filemanagement.dto.request.CreationStudentDto;
 import com.minhnam.filemanagement.entity.Student;
 import com.minhnam.filemanagement.handler.ApiResponse;
 import com.minhnam.filemanagement.service.StudentService;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/students")
@@ -35,6 +38,12 @@ public class StudentController {
                 .message("Success")
                 .data(studentService.getAllStudents())
                 .build();
+    }
+
+    @GetMapping("/search")
+    public List<Student> searchStudent(@RequestParam(value = "page", defaultValue = "1") int page,
+                                       @RequestParam(value = "size", defaultValue = "10") int size) {
+        return studentService.getStudentsWithPageable(page, size);
     }
 
     /**

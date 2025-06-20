@@ -96,4 +96,12 @@ public class StudentServiceImpl implements StudentService {
 
         return StudentConverter.toDto(student);
     }
+
+    @Override
+    public List<Student> getStudentsWithPageable(int page, int size) {
+        // Xử lý logic
+        // tính offset dựa vào size được truyền vào
+        int offset = (page - 1) * size;
+        return studentMapper.findStudentWithPageable(offset, size);
+    }
 }
