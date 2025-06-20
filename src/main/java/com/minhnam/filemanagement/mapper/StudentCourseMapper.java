@@ -2,6 +2,7 @@ package com.minhnam.filemanagement.mapper;
 
 import com.minhnam.filemanagement.entity.StudentCourse;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
@@ -9,7 +10,7 @@ import java.util.List;
 @Mapper
 public interface StudentCourseMapper {
 
-    @Select("SELECT c.name               AS course_name\n" +
+    @Select("SELECT c.name               AS course_name\n" + // courseName
             "     , COUNT(sc.student_id) AS total_students\n" +
             "FROM student_course sc\n" +
             "         RIGHT JOIN\n" +

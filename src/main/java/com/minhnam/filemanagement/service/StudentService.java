@@ -38,4 +38,6 @@ public interface StudentService {
      * @return
      */
     StudentResponseDto getStudentByStudentCode(String studentCode);
+
+    List<Student> getStudentsWithPageable(int page, int size);
 }

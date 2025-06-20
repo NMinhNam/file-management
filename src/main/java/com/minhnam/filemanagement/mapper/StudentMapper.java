@@ -70,4 +70,13 @@ public interface StudentMapper {
      * @return Student thông tin sinh viên
      */
     Student findByStudentCode(@Param("studentCode") String studentCode);
+
+    @Select("SELECT id, student_code, full_name, email, phone_number, date_of_birth, gender\n" +
+            "FROM students\n" +
+            "LIMIT #{size} OFFSET #{offset}")
+    List<Student> findStudentWithPageable(@Param("offset") int offset, @Param("size") int size);
+
+    @Select("SELECT COUNT(*)" +
+            "FROM students")
+    int countTotal();
 }
