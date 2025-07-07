@@ -1,10 +1,12 @@
 package com.minhnam.filemanagement.service.impl;
 
+import com.minhnam.filemanagement.dto.pageable.PageableResponse;
 import com.minhnam.filemanagement.entity.Course;
 import com.minhnam.filemanagement.mapper.CourseMapper;
 import com.minhnam.filemanagement.service.CourseService;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -78,5 +80,23 @@ public class CourseServiceImpl implements CourseService {
         }
 
         return courseMapper.findByStudentName(studentName);
+    }
+
+    @Override
+    public PageableResponse<Course> getCoursesWithPageable(int page, int size, String keyword, String codeCourse) {
+        // Tinh offset
+        int offset = (page - 1) * size;
+
+        List<Course> courseList = courseMapper.findCourseByKeyword(size, offset, keyword, codeCourse);
+
+        // Nếu courseList rỗng thì trả về luôn không cần tính totalElements & totalPages
+        if (courseList.isEmpty()) {
+            return new PageableResponse<>(Collections.emptyList(), 0, 0, page);
+        }
+
+        int totalElements = courseMapper.countCourse(keyword, codeCourse);
+        int totalPages = (int) Math.ceil((double) totalElements / size);
+
+        return new PageableResponse<>(courseList, totalElements, totalPages, page);
     }
 }

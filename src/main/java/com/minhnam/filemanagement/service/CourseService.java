@@ -1,5 +1,6 @@
 package com.minhnam.filemanagement.service;
 
+import com.minhnam.filemanagement.dto.pageable.PageableResponse;
 import com.minhnam.filemanagement.entity.Course;
 
 import java.util.List;
@@ -14,4 +15,6 @@ public interface CourseService {
     int deleteCourse(Integer id);
 
     List<Course> getCourseByStudentName(String studentName);
+
+    PageableResponse<Course> getCoursesWithPageable(int page, int size, String keyword, String codeCourse);
 }

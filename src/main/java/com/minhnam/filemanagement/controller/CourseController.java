@@ -1,6 +1,9 @@
 package com.minhnam.filemanagement.controller;
 
+import com.minhnam.filemanagement.dto.pageable.PageableResponse;
 import com.minhnam.filemanagement.entity.Course;
+import com.minhnam.filemanagement.enums.Message;
+import com.minhnam.filemanagement.handler.ApiResponse;
 import com.minhnam.filemanagement.service.CourseService;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,11 +25,6 @@ public class CourseController {
         this.courseService = courseService;
     }
 
-    @GetMapping("/getAllCourses")
-    public List<Course> getAllCourses() {
-        return courseService.getAllCourses();
-    }
-
     @PostMapping("/createNewCourse")
     public int createNewCourse(@RequestBody Course course) {
         return courseService.createNewCourse(course);
@@ -40,5 +38,17 @@ public class CourseController {
     @GetMapping("/getCourseByStudentName")
     public List<Course> getCourseByStudentName(@RequestParam String studentName) {
         return courseService.getCourseByStudentName(studentName);
+    }
+
+    @GetMapping("/search")
+    public ApiResponse<PageableResponse<Course>> getCoursesWithPageable(@RequestParam(value = "page", defaultValue = "1") int page,
+                                                      @RequestParam(value = "size", defaultValue = "10") int size,
+                                                      @RequestParam String keyword,
+                                                      @RequestParam String codeCourse) {
+        return ApiResponse.<PageableResponse<Course>>builder()
+                .success(true)
+                .message(Message.API_SUCCESS.getContent())
+                .data(courseService.getCoursesWithPageable(page, size, keyword, codeCourse))
+                .build();
     }
 }
