@@ -3,7 +3,7 @@
 <mapper namespace="com.minhnam.filemanagement.mapper.CourseMapper">
 
     <resultMap id="CourseResultMap" type="Course">
-        <id property="courseId" column="id"/>
+        <id property="id" column="id"/>
         <result property="name" column="name"/>
         <result property="code" column="code"/>
         <result property="description" column="description"/>
@@ -49,6 +49,42 @@
             FROM courses
             WHERE id = #{id}
         )
+    </select>
+
+    <sql id="whereCondition">
+        (name LIKE CONCAT('%', #{keyword}, '%')
+        OR description LIKE CONCAT('%', #{keyword}, '%'))
+        <if test="codeCourse != null and codeCourse != ''">
+            AND code = #{codeCourse}
+        </if>
+    </sql>
+
+    <select id="findCourseByKeyword" resultMap="CourseResultMap">
+        SELECT  id,
+                name,
+                code,
+                description
+        FROM courses
+        <where>
+            (name LIKE CONCAT('%', #{keyword}, '%')
+            OR description LIKE CONCAT('%', #{keyword}, '%'))
+            <if test="codeCourse != null and codeCourse != ''">
+                AND code = #{codeCourse}
+            </if>
+        </where>
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
+
+    <select id="countCourse">
+        SELECT COUNT(*)
+        FROM courses
+        <where>
+            (name LIKE CONCAT('%', #{keyword}, '%')
+            OR description LIKE CONCAT('%', #{keyword}, '%'))
+            <if test="codeCourse != null and codeCourse != ''">
+                AND code = #{codeCourse}
+            </if>
+        </where>
     </select>
 </mapper>
 

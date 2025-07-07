@@ -10,14 +10,11 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Course {
-    private Integer courseId;
+    private Integer id;
 
     private String name;
 
     private String code;
 
     private String description;
-
-    // Student
-    private String fullName;
 }

@@ -32,4 +32,12 @@ public interface CourseMapper {
             "         LEFT JOIN students s ON s.id = student_course.student_id\n" +
             "WHERE s.full_name = #{studentName}")
     List<Course> findByStudentName(@Param("studentName") String studentName);
+
+    List<Course> findCourseByKeyword(@Param("limit") int limit,
+                                     @Param("offset") int offset,
+                                     @Param("keyword") String keyword,
+                                     @Param("codeCourse") String codeCourse);
+
+    int countCourse(@Param("keyword") String keyword,
+                    @Param("codeCourse") String codeCourse);
 }
